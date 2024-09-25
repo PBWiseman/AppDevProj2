@@ -1,7 +1,15 @@
-[gd_scene format=3 uid="uid://cwlqvvvvr3pr8"]
+[gd_scene load_steps=3 format=3 uid="uid://cwlqvvvvr3pr8"]
 
-[node name="Game" type="Node2D"]
+[ext_resource type="PackedScene" uid="uid://bhpls5uoqc151" path="res://level/level.tscn" id="1_o812g"]
+[ext_resource type="PackedScene" uid="uid://c6kwxs6hoad4o" path="res://player/player.tscn" id="2_b16xs"]
 
-[node name="Level" type="Node2D" parent="."]
+[node name="Game" type="Node"]
+process_mode = 3
+
+[node name="Level" parent="." instance=ExtResource("1_o812g")]
+position = Vector2(3.63428, -10.0271)
+
+[node name="Player" parent="Level" instance=ExtResource("2_b16xs")]
+position = Vector2(16.3657, -32.9729)
 
 [node name="InterfaceLayer" type="CanvasLayer" parent="."]

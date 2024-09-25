@@ -11,6 +11,8 @@ config_version=5
 [application]
 
 config/name="AppDevProj2"
+config/tags=PackedStringArray("2d")
+run/main_scene="res://level/level.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
