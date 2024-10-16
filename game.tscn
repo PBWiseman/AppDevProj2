@@ -10,6 +10,6 @@ process_mode = 3
 position = Vector2(3.63428, -10.0271)
 
 [node name="Player" parent="Level" instance=ExtResource("2_b16xs")]
-position = Vector2(16.3657, -32.9729)
+position = Vector2(461.366, 362.027)
 
 [node name="InterfaceLayer" type="CanvasLayer" parent="."]
