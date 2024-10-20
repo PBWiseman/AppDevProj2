@@ -10,6 +10,10 @@ process_mode = 3
 position = Vector2(3.63428, -10.0271)
 
 [node name="Player" parent="Level" instance=ExtResource("2_b16xs")]
-position = Vector2(461.366, 362.027)
+position = Vector2(370.366, 385.027)
+jumpHeight = 3.0
+jumps = 2
+groundPound = false
+upToCancel = false
 
 [node name="InterfaceLayer" type="CanvasLayer" parent="."]
