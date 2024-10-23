@@ -1,7 +1,8 @@
-[gd_scene load_steps=39 format=3 uid="uid://c6kwxs6hoad4o"]
+[gd_scene load_steps=40 format=3 uid="uid://c6kwxs6hoad4o"]
 
 [ext_resource type="Texture2D" uid="uid://d3kvltojeen6a" path="res://player/robot.webp" id="1_kevup"]
 [ext_resource type="Script" path="res://UltimatePlatformerController.gd" id="1_x8s3m"]
+[ext_resource type="Script" path="res://player/PlayerRespawn.gd" id="3_fy57f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nh0tc"]
 size = Vector2(43, 64)
@@ -327,3 +328,6 @@ limit_bottom = 690
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_muug1")
 animation = &"latch"
+
+[node name="Respawning" type="Node2D" parent="."]
+script = ExtResource("3_fy57f")
