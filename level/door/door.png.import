@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blqnjo851588o"
-path="res://.godot/imported/pixil-frame-0.png-96bee40424110c5b7ec73a6ddd158e8c.ctex"
+uid="uid://bmrsudldofceg"
+path="res://.godot/imported/door.png-b5837a16bf41b836021a52a47286c129.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://level/key/pixil-frame-0.png"
-dest_files=["res://.godot/imported/pixil-frame-0.png-96bee40424110c5b7ec73a6ddd158e8c.ctex"]
+source_file="res://level/door/door.png"
+dest_files=["res://.godot/imported/door.png-b5837a16bf41b836021a52a47286c129.ctex"]
 
 [params]
 

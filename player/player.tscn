@@ -306,7 +306,9 @@ size = Vector2(43, 64)
 script = ExtResource("1_x8s3m")
 PlayerSprite = NodePath("AnimatedSprite2D")
 PlayerCollider = NodePath("CollisionShape2D")
-jumps = 3
+jumps = 2
+coyoteTime = 0.1
+jumpBuffering = 0.1
 dashType = 4
 crouch = true
 groundPound = true
@@ -324,14 +326,11 @@ shape = SubResource("RectangleShape2D_nh0tc")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(0, 50)
-limit_left = -715
-limit_top = -250
-limit_right = 1425
 limit_bottom = 690
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_muug1")
-animation = &"latch"
+animation = &"idle"
 
 [node name="Respawning" type="Node2D" parent="."]
 script = ExtResource("3_fy57f")

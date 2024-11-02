@@ -19,6 +19,6 @@ func _on_area_2d_body_entered(body:Node2D) -> void:
 
 func changeSprite() -> void:
 	if isActive:
-		texture = load("res://level/checkpoint/CheckpointGreen.png")
+		texture = load("res://level/checkpoint/checkpoint_green.png")
 	else:
-		texture = load("res://level/checkpoint/CheckpointRed.png")
+		texture = load("res://level/checkpoint/checkpoint_red.png")

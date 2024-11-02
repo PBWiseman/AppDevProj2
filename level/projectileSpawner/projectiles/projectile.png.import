@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxidjaekl27dr"
-path="res://.godot/imported/CheckpointGreen.png-594e0c8608e6b0a259ed15affc2fa1fd.ctex"
+uid="uid://b5sxrto88hxqh"
+path="res://.godot/imported/projectile.png-f0230d80ab2f8a58fc415691b7c19609.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://level/checkpoint/CheckpointGreen.png"
-dest_files=["res://.godot/imported/CheckpointGreen.png-594e0c8608e6b0a259ed15affc2fa1fd.ctex"]
+source_file="res://level/projectileSpawner/projectiles/projectile.png"
+dest_files=["res://.godot/imported/projectile.png-f0230d80ab2f8a58fc415691b7c19609.ctex"]
 
 [params]
 

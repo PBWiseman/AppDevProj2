@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdpotyoqjbd1i"]
+
+[ext_resource type="Script" path="res://level/speedrun_timer/speedrun_timer.gd" id="1_4j21q"]
+
+[node name="SpeedrunTimer" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("1_4j21q")

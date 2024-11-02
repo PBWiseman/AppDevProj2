@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bfvsex05ww84q"]
 
-[ext_resource type="Texture2D" uid="uid://blqnjo851588o" path="res://level/key/pixil-frame-0.png" id="1_5sjv4"]
+[ext_resource type="Texture2D" uid="uid://blqnjo851588o" path="res://level/pixil-frame-0.png" id="1_5sjv4"]
 [ext_resource type="Script" path="res://level/key/key.gd" id="2_455ky"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3fhif"]
