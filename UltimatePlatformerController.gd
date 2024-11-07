@@ -161,6 +161,8 @@ var anim
 var col
 var animScaleLock : Vector2
 
+var timerStarted = false
+
 #Input Variables for the whole script
 var upHold
 var downHold
@@ -267,6 +269,10 @@ func _process(_delta):
 	#run
 	if run and idle and !dashing and !crouching:
 		if abs(velocity.x) > 0.1 and is_on_floor() and !is_on_wall():
+			if !timerStarted:
+				timerStarted = true
+				var node = get_node("../CanvasLayer/SpeedrunTimer")
+				node.start_timer()
 			anim.speed_scale = abs(velocity.x / 150)
 			anim.play("run")
 		elif abs(velocity.x) < 0.1 and is_on_floor():
@@ -285,6 +291,10 @@ func _process(_delta):
 		
 	#jump
 	if velocity.y < 0 and jump and !dashing:
+		if !timerStarted:
+			timerStarted = true
+			var node = get_node("../CanvasLayer/SpeedrunTimer")
+			node.start_timer()
 		anim.speed_scale = 1
 		anim.play("jump")
 		
@@ -470,8 +480,7 @@ func _physics_process(delta):
 		if !is_on_floor() and !is_on_wall():
 			if coyoteTime > 0:
 				coyoteActive = true
-				_coyoteTime()
-				
+				_coyoteTime()		
 		if jumpTap and !is_on_wall():
 			if coyoteActive:
 				coyoteActive = false
@@ -500,7 +509,9 @@ func _physics_process(delta):
 	elif jumps > 1:
 		if is_on_floor():
 			jumpCount = jumps
-		if jumpTap and jumpCount > 0 and !is_on_wall():
+		elif jumpCount == jumps:
+			jumpCount = jumps - 1
+		if jumpTap and jumpCount > 0:
 			velocity.y = -jumpMagnitude
 			jumpCount = jumpCount - 1
 			_endGroundPound()
