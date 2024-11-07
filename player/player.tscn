@@ -306,19 +306,13 @@ size = Vector2(43, 64)
 script = ExtResource("1_x8s3m")
 PlayerSprite = NodePath("AnimatedSprite2D")
 PlayerCollider = NodePath("CollisionShape2D")
+jumpHeight = 1.0
 jumps = 2
-coyoteTime = 0.1
-jumpBuffering = 0.1
-dashType = 4
-crouch = true
-groundPound = true
-upToCancel = true
+dashCancel = false
 run = true
 jump = true
 idle = true
-latch = true
 falling = true
-crouch_idle = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -1)

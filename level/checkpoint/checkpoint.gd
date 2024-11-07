@@ -15,7 +15,6 @@ func _on_area_2d_body_entered(body:Node2D) -> void:
 				checkpoint.isActive = false
 				checkpoint.changeSprite()
 		
-		
 
 func changeSprite() -> void:
 	if isActive:

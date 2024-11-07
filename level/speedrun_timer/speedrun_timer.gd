@@ -1,13 +1,13 @@
 extends Label
 
 var elapsed_time: float = 0.0
-var stopped: bool = false
+var stopped: bool = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if not stopped:
 		elapsed_time += delta
-		text = format_time(elapsed_time)
+	text = format_time(elapsed_time)
 
 func format_time(time: float) -> String:
 	var minutes = int(time) / 60
@@ -26,3 +26,6 @@ func stop_timer() -> void:
 func add_time(time: float) -> void:
 	elapsed_time += time
 	text = format_time(elapsed_time)
+
+func start_timer() -> void:
+	stopped = false

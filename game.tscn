@@ -1,18 +1,60 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwlqvvvvr3pr8"]
+[gd_scene load_steps=4 format=3 uid="uid://cwlqvvvvr3pr8"]
 
-[ext_resource type="PackedScene" uid="uid://bhpls5uoqc151" path="res://level/level.tscn" id="1_o812g"]
-[ext_resource type="PackedScene" uid="uid://c6kwxs6hoad4o" path="res://player/player.tscn" id="2_b16xs"]
+[ext_resource type="PackedScene" uid="uid://cbrn36vuruy1w" path="res://start_button/button.tscn" id="3_nt8cq"]
+
+[sub_resource type="Gradient" id="Gradient_xuj2s"]
+offsets = PackedFloat32Array(0, 0.876623)
+colors = PackedColorArray(0.117647, 0.117647, 0.203922, 1, 0.282353, 0.411765, 0.74902, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8rwak"]
+gradient = SubResource("Gradient_xuj2s")
+fill_to = Vector2(0.00917431, 1)
 
 [node name="Game" type="Node"]
 process_mode = 3
 
-[node name="Level" parent="." instance=ExtResource("1_o812g")]
-position = Vector2(3.63428, -10.0271)
-
-[node name="Player" parent="Level" instance=ExtResource("2_b16xs")]
-position = Vector2(370.366, 389.027)
-jumpHeight = 3.0
-groundPound = false
-upToCancel = false
-
 [node name="InterfaceLayer" type="CanvasLayer" parent="."]
+
+[node name="Tutorial" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_8rwak")
+
+[node name="Label" type="Label" parent="Tutorial/TextureRect"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+text = "Movement:        WASD
+Jump:                  Space
+Respawn:                    R
+Reset:                          T
+
+Getting hit by a projectile respawns you at a checkpoint
+Respawing is +1 second on the timer
+You are invulnerable for 1 second after respawning
+
+Collect 3 keys per area to open the force fields
+
+Get the treasure at the end of the maze
+
+Good luck!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" parent="Tutorial" instance=ExtResource("3_nt8cq")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -58.0
+offset_top = -128.0
+offset_right = 58.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 0

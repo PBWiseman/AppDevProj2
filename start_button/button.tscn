@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbrn36vuruy1w"]
+
+[ext_resource type="Texture2D" uid="uid://drigt52des6we" path="res://start_button/button_up.png" id="2_tu4ji"]
+[ext_resource type="Script" path="res://start_button/button.gd" id="3_rdwwc"]
+
+[node name="Button" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+icon = ExtResource("2_tu4ji")
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 2
+script = ExtResource("3_rdwwc")
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="button_up" from="." to="." method="_on_button_up"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

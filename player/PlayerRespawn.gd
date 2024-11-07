@@ -4,10 +4,13 @@ var checkpoint_position: Vector2
 var player: Node2D  # Reference to the player node
 var lastRespawnTime: int = 0
 const RESPAWN_DELAY = 1000
+var start_position: Vector2
+var node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player = get_parent()
+	start_position = player.position
 	checkpoint_position = player.position
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -26,4 +29,9 @@ func respawn() -> void:
 		return
 	lastRespawnTime = Time.get_ticks_msec()
 	player.position = checkpoint_position
-	get_node("../../CanvasLayer/SpeedrunTimer").add_time(1.0)
+	node = get_node("../../CanvasLayer/SpeedrunTimer")
+	node.add_time(1.0)
+
+func reset() -> void:
+	player.position = start_position
+	checkpoint_position = start_position

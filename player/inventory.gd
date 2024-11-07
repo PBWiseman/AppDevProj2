@@ -9,17 +9,17 @@ var keyCount : int :
 		keys = value
 		var game = get_tree().get_current_scene()
 		#get all spawner nodes
-		var spawners = game.get_node("Level/Spawners").get_children()
+		var spawners = game.get_node("Spawners").get_children()
 		match keys:
 			3:
-				game.get_node("Level/Door").destroy()
+				game.get_node("Door").destroy()
 				for spawner in spawners:
 					spawner.stage(2)
 			6:
-				game.get_node("Level/Door2").destroy()
+				game.get_node("Door2").destroy()
 				for spawner in spawners:
 					spawner.stage(3)
 			9:
-				game.get_node("Level/Door3").destroy()
+				game.get_node("Door3").destroy()
 				for spawner in spawners:
 					spawner.stage(4)
