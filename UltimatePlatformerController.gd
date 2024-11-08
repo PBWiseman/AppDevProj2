@@ -339,19 +339,12 @@ func _physics_process(delta):
 	leftHold = Input.is_action_pressed("left")
 	rightHold = Input.is_action_pressed("right")
 	upHold = Input.is_action_pressed("up")
-	downHold = Input.is_action_pressed("down")
 	leftTap = Input.is_action_just_pressed("left")
 	rightTap = Input.is_action_just_pressed("right")
 	leftRelease = Input.is_action_just_released("left")
 	rightRelease = Input.is_action_just_released("right")
 	jumpTap = Input.is_action_just_pressed("jump")
 	jumpRelease = Input.is_action_just_released("jump")
-	runHold = Input.is_action_pressed("run")
-	latchHold = Input.is_action_pressed("latch")
-	dashTap = Input.is_action_just_pressed("dash")
-	rollTap = Input.is_action_just_pressed("roll")
-	downTap = Input.is_action_just_pressed("down")
-	twirlTap = Input.is_action_just_pressed("twirl")
 	
 	
 	#INFO Left and Right Movement
