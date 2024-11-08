@@ -8,14 +8,9 @@ class_name PlatformerController2D
 
 ##The max speed your player will move
 var maxSpeed: float = 200.0
-##How fast your player will reach max speed from rest (in seconds)
-var timeToReachMaxSpeed: float = 0.2
-##How fast your player will reach zero speed from max speed (in seconds)
-var timeToReachZeroSpeed: float = 0.2
+#Time to reach max acceleration and deceleration
+var timeToReach: float = 0.2
 
-
-#INFO JUMPING 
-@export_category("Jumping and Gravity")
 #Max jump height
 var jumpHeight: float = 3.0
 #Max jumps, including grounded jump
@@ -26,8 +21,6 @@ var gravityScale: float = 20.0
 var terminalVelocity: float = 500.0
 #Gravity increase when falling
 var descendingGravityFactor: float = 1.3
-#Short hops
-var shortHop: bool = true
 #Time to jump after falling off a ledge
 var coyoteTime: float = 0.2
 
@@ -41,17 +34,14 @@ var appliedTerminalVelocity: float
 var friction: float
 var acceleration: float
 var deceleration: float
-var instantAccel: bool = false
-var instantStop: bool = false
 
 var jumpMagnitude: float = 500.0
 var jumpCount: int
 var jumpWasPressed: bool = false
 var coyoteActive: bool = false
-var dashMagnitude: float
 var gravityActive: bool = true
 
-var wasMovingR: bool
+var wasMovingR: bool = true
 var wasPressingR: bool
 var movementInputMonitoring: Vector2 = Vector2(true, true) #movementInputMonitoring.x addresses right direction while .y addresses left direction
 
@@ -70,7 +60,6 @@ var timerStarted = false
 
 #Input Variables for the whole script
 var upHold
-var downHold
 var leftHold
 var leftTap
 var leftRelease
@@ -79,53 +68,21 @@ var rightTap
 var rightRelease
 var jumpTap
 var jumpRelease
-var runHold
-var latchHold
-var dashTap
-var rollTap
-var downTap
-var twirlTap
 
 func _ready():
-	wasMovingR = true
 	anim = PlayerSprite
 	col = PlayerCollider
 	
 	_updateData()
 	
 func _updateData():
-	acceleration = maxSpeed / timeToReachMaxSpeed
-	deceleration = -maxSpeed / timeToReachZeroSpeed
-	
+	acceleration = maxSpeed / timeToReach
+	deceleration = -maxSpeed / timeToReach
 	jumpMagnitude = (10.0 * jumpHeight) * gravityScale
 	jumpCount = jumps
-	
 	animScaleLock = abs(anim.scale)
 	colliderScaleLockY = col.scale.y
 	colliderPosLockY = col.position.y
-	
-	if timeToReachMaxSpeed == 0:
-		instantAccel = true
-		timeToReachMaxSpeed = 1
-	elif timeToReachMaxSpeed < 0:
-		timeToReachMaxSpeed = abs(timeToReachMaxSpeed)
-		instantAccel = false
-	else:
-		instantAccel = false
-		
-	if timeToReachZeroSpeed == 0:
-		instantStop = true
-		timeToReachZeroSpeed = 1
-	elif timeToReachMaxSpeed < 0:
-		timeToReachMaxSpeed = abs(timeToReachMaxSpeed)
-		instantStop = false
-	else:
-		instantStop = false
-		
-	if jumps > 1:
-		coyoteTime = 0
-	
-	coyoteTime = abs(coyoteTime)
 	
 	
 
@@ -138,10 +95,7 @@ func _process(_delta):
 	
 	#Movement
 	if abs(velocity.x) > 0.1 and is_on_floor() and !is_on_wall():
-		if !timerStarted:
-			timerStarted = true
-			var node = get_node("../CanvasLayer/SpeedrunTimer")
-			node.start_timer()
+		timerStart()
 		anim.speed_scale = abs(velocity.x / 150)
 		anim.play("run")
 	elif abs(velocity.x) < 0.1 and is_on_floor():
@@ -150,10 +104,7 @@ func _process(_delta):
 
 	#Jumping
 	if velocity.y < 0:
-		if !timerStarted:
-			timerStarted = true
-			var node = get_node("../CanvasLayer/SpeedrunTimer")
-			node.start_timer()
+		timerStart()
 		anim.speed_scale = 1
 		anim.play("jump")
 
@@ -162,14 +113,18 @@ func _process(_delta):
 		anim.speed_scale = 1
 		anim.play("falling")
 		
-		
+func timerStart():
+	if !timerStarted:
+		timerStarted = true
+		var node = get_node("../CanvasLayer/SpeedrunTimer")
+		node.start_timer()
 		
 
 func _physics_process(delta):
 	if !dset:
 		gdelta = delta
 		dset = true
-	#INFO Input Detectio. Define your inputs from the project settings here.
+
 	leftHold = Input.is_action_pressed("left")
 	rightHold = Input.is_action_pressed("right")
 	upHold = Input.is_action_pressed("up")
@@ -181,33 +136,23 @@ func _physics_process(delta):
 	jumpRelease = Input.is_action_just_released("jump")
 	
 	
-	#INFO Left and Right Movement
-	
+	#Left and Right Movement
 	if rightHold and leftHold and movementInputMonitoring:
-		if !instantStop:
-			_decelerate(delta, false)
-		else:
-			velocity.x = -0.1
+		_decelerate(delta, false)
 	elif rightHold and movementInputMonitoring.x:
-		if velocity.x > maxSpeed or instantAccel:
+		if velocity.x > maxSpeed:
 			velocity.x = maxSpeed
 		else:
 			velocity.x += acceleration * delta
 		if velocity.x < 0:
-			if !instantStop:
-				_decelerate(delta, false)
-			else:
-				velocity.x = -0.1
+			_decelerate(delta, false)
 	elif leftHold and movementInputMonitoring.y:
-		if velocity.x < -maxSpeed or instantAccel:
+		if velocity.x < -maxSpeed:
 			velocity.x = -maxSpeed
 		else:
 			velocity.x -= acceleration * delta
 		if velocity.x > 0:
-			if !instantStop:
-				_decelerate(delta, false)
-			else:
-				velocity.x = 0.1
+			_decelerate(delta, false)
 				
 	if velocity.x > 0:
 		wasMovingR = true
@@ -220,15 +165,12 @@ func _physics_process(delta):
 		wasPressingR = false
 	
 	if !(leftHold or rightHold):
-		if !instantStop:
-			_decelerate(delta, false)
-		else:
-			velocity.x = 0
+		_decelerate(delta, false)
 
 	col.scale.y = colliderScaleLockY
 	col.position.y = colliderPosLockY
 			
-	#INFO Jump and Gravity
+	#Jump and Gravity
 	if velocity.y > 0:
 		appliedGravity = gravityScale * descendingGravityFactor
 	else:
@@ -241,7 +183,7 @@ func _physics_process(delta):
 		elif velocity.y > terminalVelocity:
 				velocity.y = terminalVelocity
 		
-	if shortHop and jumpRelease and velocity.y < 0:
+	if jumpRelease and velocity.y < 0:
 		velocity.y = velocity.y / 2
 	
 	if jumps == 1:
@@ -278,7 +220,6 @@ func _coyoteTime():
 	await get_tree().create_timer(coyoteTime).timeout
 	coyoteActive = false
 	jumpCount += -1
-
 	
 func _jump():
 	if jumpCount > 0:
@@ -286,12 +227,10 @@ func _jump():
 		jumpCount += -1
 		jumpWasPressed = false
 
-
 func _inputPauseReset(time):
 	await get_tree().create_timer(time).timeout
 	movementInputMonitoring = Vector2(true, true)
 	
-
 func _decelerate(delta, vertical):
 	if !vertical:
 		if velocity.x > 0:
@@ -300,12 +239,3 @@ func _decelerate(delta, vertical):
 			velocity.x -= deceleration * delta
 	elif vertical and velocity.y > 0:
 		velocity.y += deceleration * delta
-
-
-func _pauseGravity(time):
-	gravityActive = false
-	await get_tree().create_timer(time).timeout
-	gravityActive = true
-
-func _placeHolder():
-	print("")
