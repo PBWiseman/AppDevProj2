@@ -46,16 +46,6 @@ class_name PlatformerController2D
 @export_range(0, 0.5) var jumpBuffering: float = 0.2
 
 
-@export_category("Animations (Check Box if has animation)")
-##Animations must be named "run" all lowercase as the check box says
-@export var run: bool
-##Animations must be named "jump" all lowercase as the check box says
-@export var jump: bool
-##Animations must be named "idle" all lowercase as the check box says
-@export var idle: bool
-##Animations must be named "falling" all lowercase as the check box says
-@export var falling: bool
-
 
 
 #Variables determined by the developer set ones.
@@ -175,28 +165,26 @@ func _updateData():
 	
 
 func _process(_delta):
-	#INFO animations
-
+	#Flip Sprite
 	if rightHold:
 		anim.scale.x = animScaleLock.x
 	if leftHold:
 		anim.scale.x = animScaleLock.x * -1
 	
-	#Running
-	if run and idle:
-		if abs(velocity.x) > 0.1 and is_on_floor() and !is_on_wall():
-			if !timerStarted:
-				timerStarted = true
-				var node = get_node("../CanvasLayer/SpeedrunTimer")
-				node.start_timer()
-			anim.speed_scale = abs(velocity.x / 150)
-			anim.play("run")
-		elif abs(velocity.x) < 0.1 and is_on_floor():
-			anim.speed_scale = 1
-			anim.play("idle")
+	#Movement
+	if abs(velocity.x) > 0.1 and is_on_floor() and !is_on_wall():
+		if !timerStarted:
+			timerStarted = true
+			var node = get_node("../CanvasLayer/SpeedrunTimer")
+			node.start_timer()
+		anim.speed_scale = abs(velocity.x / 150)
+		anim.play("run")
+	elif abs(velocity.x) < 0.1 and is_on_floor():
+		anim.speed_scale = 1
+		anim.play("idle")
 
 	#Jumping
-	if velocity.y < 0 and jump and !dashing:
+	if velocity.y < 0:
 		if !timerStarted:
 			timerStarted = true
 			var node = get_node("../CanvasLayer/SpeedrunTimer")
@@ -205,7 +193,7 @@ func _process(_delta):
 		anim.play("jump")
 
 	#Falling
-	if velocity.y > 40 and falling and !dashing and !crouching:
+	if velocity.y > 40:
 		anim.speed_scale = 1
 		anim.play("falling")
 		
