@@ -45,20 +45,6 @@ class_name PlatformerController2D
 ##The window of time (in seconds) that your player can press the jump button before hitting the ground and still have their input registered as a jump. This is set to 0.2 seconds by default.
 @export_range(0, 0.5) var jumpBuffering: float = 0.2
 
-#INFO EXTRAS
-@export_category("Wall Jumping")
-##Allows your player to jump off of walls. Without a Wall Kick Angle, the player will be able to scale the wall.
-@export var wallJump: bool = false
-##How long the player's movement input will be ignored after wall jumping.
-@export_range(0, 0.5) var inputPauseAfterWallJump: float = 0.1
-##The angle at which your player will jump away from the wall. 0 is straight away from the wall, 90 is straight up. Does not account for gravity
-@export_range(0, 90) var wallKickAngle: float = 60.0
-##The player's gravity will be divided by this number when touch a wall and descending. Set to 1 by default meaning no change will be made to the gravity and there is effectively no wall sliding. THIS IS OVERRIDDED BY WALL LATCH.
-@export_range(1, 20) var wallSliding: float = 1.0
-##If enabled, the player's gravity will be set to 0 when touching a wall and descending. THIS WILL OVERRIDE WALLSLIDING.
-@export var wallLatching: bool = false
-##wall latching must be enabled for this to work. #If enabled, the player must hold down the "latch" key to wall latch. Assign "latch" in the project input settings. The player's input will be ignored when latching.
-@export var wallLatchingModifer: bool = false
 
 @export_category("Animations (Check Box if has animation)")
 ##Animations must be named "run" all lowercase as the check box says
@@ -301,15 +287,13 @@ func _physics_process(delta):
 		appliedGravity = gravityScale * descendingGravityFactor
 	else:
 		appliedGravity = gravityScale
-	
-	appliedTerminalVelocity = terminalVelocity / wallSliding
 
 	
 	if gravityActive:
-		if velocity.y < appliedTerminalVelocity:
+		if velocity.y < terminalVelocity:
 			velocity.y += appliedGravity
-		elif velocity.y > appliedTerminalVelocity:
-				velocity.y = appliedTerminalVelocity
+		elif velocity.y > terminalVelocity:
+				velocity.y = terminalVelocity
 		
 	if shortHopAkaVariableJumpHeight and jumpRelease and velocity.y < 0:
 		velocity.y = velocity.y / 2

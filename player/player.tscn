@@ -308,7 +308,6 @@ PlayerSprite = NodePath("AnimatedSprite2D")
 PlayerCollider = NodePath("CollisionShape2D")
 jumpHeight = 1.0
 jumps = 2
-dashCancel = false
 run = true
 jump = true
 idle = true
