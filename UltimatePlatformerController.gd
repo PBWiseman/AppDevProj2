@@ -59,26 +59,6 @@ class_name PlatformerController2D
 @export var wallLatching: bool = false
 ##wall latching must be enabled for this to work. #If enabled, the player must hold down the "latch" key to wall latch. Assign "latch" in the project input settings. The player's input will be ignored when latching.
 @export var wallLatchingModifer: bool = false
-@export_category("Dashing")
-##The type of dashes the player can do.
-@export_enum("None", "Horizontal", "Vertical", "Four Way", "Eight Way") var dashType: int
-##How many dashes your player can do before needing to hit the ground.
-@export_range(0, 10) var dashes: int = 1
-##If enabled, pressing the opposite direction of a dash, during a dash, will zero the player's velocity.
-@export var dashCancel: bool = true
-##How far the player will dash. One of the dashing toggles must be on for this to be used.
-@export_range(1.5, 4) var dashLength: float = 2.5
-@export_category("Corner Cutting/Jump Correct")
-##If the player's head is blocked by a jump but only by a little, the player will be nudged in the right direction and their jump will execute as intended. NEEDS RAYCASTS TO BE ATTACHED TO THE PLAYER NODE. AND ASSIGNED TO MOUNTING RAYCAST. DISTANCE OF MOUNTING DETERMINED BY PLACEMENT OF RAYCAST.
-@export var cornerCutting: bool = false
-##How many pixels the player will be pushed (per frame) if corner cutting is needed to correct a jump.
-@export_range(1, 5) var correctionAmount: float = 1.5
-##Raycast used for corner cutting calculations. Place above and to the left of the players head point up. ALL ARE NEEDED FOR IT TO WORK.
-@export var leftRaycast: RayCast2D
-##Raycast used for corner cutting calculations. Place above of the players head point up. ALL ARE NEEDED FOR IT TO WORK.
-@export var middleRaycast: RayCast2D
-##Raycast used for corner cutting calculations. Place above and to the right of the players head point up. ALL ARE NEEDED FOR IT TO WORK.
-@export var rightRaycast: RayCast2D
 
 @export_category("Animations (Check Box if has animation)")
 ##Animations must be named "run" all lowercase as the check box says
@@ -171,9 +151,6 @@ func _updateData():
 	jumpMagnitude = (10.0 * jumpHeight) * gravityScale
 	jumpCount = jumps
 	
-	dashMagnitude = maxSpeed * dashLength
-	dashCount = dashes
-	
 	maxSpeedLock = maxSpeed
 	
 	animScaleLock = abs(anim.scale)
@@ -208,22 +185,6 @@ func _updateData():
 	if directionalSnap:
 		instantAccel = true
 		instantStop = true
-	
-	
-	twoWayDashHorizontal = false
-	twoWayDashVertical = false
-	eightWayDash = false
-	if dashType == 0:
-		pass
-	if dashType == 1:
-		twoWayDashHorizontal = true
-	elif dashType == 2:
-		twoWayDashVertical = true
-	elif dashType == 3:
-		twoWayDashHorizontal = true
-		twoWayDashVertical = true
-	elif dashType == 4:
-		eightWayDash = true
 	
 	
 
