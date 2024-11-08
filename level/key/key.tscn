@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://level/key/key.gd" id="2_455ky"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3fhif"]
+size = Vector2(60, 100)
 
 [node name="Key" type="Sprite2D"]
 texture = ExtResource("1_5sjv4")

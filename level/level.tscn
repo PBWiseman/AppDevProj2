@@ -183,30 +183,39 @@ scale = Vector2(0.8, 0.8)
 
 [node name="Key1" parent="Keys" instance=ExtResource("7_d3swq")]
 position = Vector2(634, 530)
+scale = Vector2(0.25, 0.25)
 
 [node name="Key2" parent="Keys" instance=ExtResource("7_d3swq")]
 position = Vector2(566, 244)
+scale = Vector2(0.25, 0.25)
 
 [node name="Key3" parent="Keys" instance=ExtResource("7_d3swq")]
 position = Vector2(409, 463)
+scale = Vector2(0.25, 0.25)
 
 [node name="Key4" parent="Keys" instance=ExtResource("7_d3swq")]
 position = Vector2(1258, 457)
+scale = Vector2(0.25, 0.25)
 
 [node name="Key5" parent="Keys" instance=ExtResource("7_d3swq")]
 position = Vector2(1181, -26)
+scale = Vector2(0.25, 0.25)
 
 [node name="Key6" parent="Keys" instance=ExtResource("7_d3swq")]
 position = Vector2(1190, -713)
+scale = Vector2(0.25, 0.25)
 
 [node name="Key7" parent="Keys" instance=ExtResource("7_d3swq")]
 position = Vector2(1708, -36)
+scale = Vector2(0.25, 0.25)
 
 [node name="Key8" parent="Keys" instance=ExtResource("7_d3swq")]
 position = Vector2(1766, 434)
+scale = Vector2(0.25, 0.25)
 
 [node name="Key9" parent="Keys" instance=ExtResource("7_d3swq")]
 position = Vector2(2757, -606)
+scale = Vector2(0.25, 0.25)
 
 [node name="Spawners" type="Node2D" parent="."]
 
