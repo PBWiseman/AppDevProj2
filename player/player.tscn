@@ -1,8 +1,8 @@
 [gd_scene load_steps=42 format=3 uid="uid://c6kwxs6hoad4o"]
 
 [ext_resource type="Texture2D" uid="uid://d3kvltojeen6a" path="res://player/robot.webp" id="1_kevup"]
-[ext_resource type="Script" path="res://UltimatePlatformerController.gd" id="1_x8s3m"]
-[ext_resource type="Script" path="res://player/PlayerRespawn.gd" id="3_fy57f"]
+[ext_resource type="Script" path="res://player/movement.gd" id="1_x8s3m"]
+[ext_resource type="Script" path="res://player/player_respawn.gd" id="3_fy57f"]
 [ext_resource type="Script" path="res://player/inventory.gd" id="4_3cl51"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nh0tc"]

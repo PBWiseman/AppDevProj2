@@ -21,5 +21,3 @@ var keyCount : int :
 					spawner.stage(3)
 			9:
 				game.get_node("Door3").destroy()
-				for spawner in spawners:
-					spawner.stage(4)

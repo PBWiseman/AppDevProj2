@@ -36,8 +36,6 @@ func _on_Timer_timeout() -> void:
 	timer.start()
 
 func stage(value: int) -> void:
-	print("Stage: ", value)
-	print("Stages: ", stages)
 	if value in stages:
 		active = true
 	else:
