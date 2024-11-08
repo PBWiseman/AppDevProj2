@@ -2,19 +2,10 @@ extends CharacterBody2D
 
 class_name PlatformerController2D
 
-@export var README: String = "IMPORTANT: MAKE SURE TO ASSIGN 'left' 'right' 'jump' 'dash' 'up' 'down' in the project settings input map. Usage tips. 1. Hover over each toggle and variable to read what it does and to make sure nothing bugs. 2. Animations are very primitive. To make full use of your custom art, you may want to slightly change the code for the animations"
-#INFO READEME 
-#IMPORTANT: MAKE SURE TO ASSIGN 'left' 'right' 'jump' 'dash' 'up' 'down' in the project settings input map. THIS IS REQUIRED
-#Usage tips. 
-#1. Hover over each toggle and variable to read what it does and to make sure nothing bugs. 
-#2. Animations are very primitive. To make full use of your custom art, you may want to slightly change the code for the animations
-
 @export_category("Necesary Child Nodes")
 @export var PlayerSprite: AnimatedSprite2D
 @export var PlayerCollider: CollisionShape2D
 
-#INFO HORIZONTAL MOVEMENT 
-@export_category("L/R Movement")
 ##The max speed your player will move
 var maxSpeed: float = 200.0
 ##How fast your player will reach max speed from rest (in seconds)
@@ -25,20 +16,20 @@ var timeToReachZeroSpeed: float = 0.2
 
 #INFO JUMPING 
 @export_category("Jumping and Gravity")
-##The peak height of your player's jump
-@export_range(0, 20) var jumpHeight: float = 2.0
-##How many jumps your character can do before needing to touch the ground again. Giving more than 1 jump disables jump buffering and coyote time.
-@export_range(0, 4) var jumps: int = 1
-##The strength at which your character will be pulled to the ground.
-@export_range(0, 100) var gravityScale: float = 20.0
-##The fastest your player can fall
-@export_range(0, 1000) var terminalVelocity: float = 500.0
-##Your player will move this amount faster when falling providing a less floaty jump curve.
-@export_range(0.5, 3) var descendingGravityFactor: float = 1.3
-##Enabling this toggle makes it so that when the player releases the jump key while still ascending, their vertical velocity will cut in half, providing variable jump height.
-@export var shortHopAkaVariableJumpHeight: bool = true
-##How much extra time (in seconds) your player will be given to jump after falling off an edge. This is set to 0.2 seconds by default.
-@export_range(0, 0.5) var coyoteTime: float = 0.2
+#Max jump height
+var jumpHeight: float = 3.0
+#Max jumps, including grounded jump
+var jumps: int = 2
+#Gravity strength
+var gravityScale: float = 20.0
+#Fastest falling speed
+var terminalVelocity: float = 500.0
+#Gravity increase when falling
+var descendingGravityFactor: float = 1.3
+#Short hops
+var shortHop: bool = true
+#Time to jump after falling off a ledge
+var coyoteTime: float = 0.2
 ##The window of time (in seconds) that your player can press the jump button before hitting the ground and still have their input registered as a jump. This is set to 0.2 seconds by default.
 @export_range(0, 0.5) var jumpBuffering: float = 0.2
 
@@ -47,7 +38,6 @@ var timeToReachZeroSpeed: float = 0.2
 
 #Variables determined by the developer set ones.
 var appliedGravity: float
-var maxSpeedLock: float
 var appliedTerminalVelocity: float
 
 var friction: float
@@ -62,13 +52,6 @@ var jumpWasPressed: bool = false
 var coyoteActive: bool = false
 var dashMagnitude: float
 var gravityActive: bool = true
-var dashing: bool = false
-var dashCount: int
-var rolling: bool = false
-
-var twoWayDashHorizontal
-var twoWayDashVertical
-var eightWayDash
 
 var wasMovingR: bool
 var wasPressingR: bool
@@ -80,11 +63,6 @@ var dset = false
 
 var colliderScaleLockY
 var colliderPosLockY
-
-var latched
-var wasLatched
-var crouching
-var groundPounding
 
 var anim
 var col
@@ -123,8 +101,6 @@ func _updateData():
 	
 	jumpMagnitude = (10.0 * jumpHeight) * gravityScale
 	jumpCount = jumps
-	
-	maxSpeedLock = maxSpeed
 	
 	animScaleLock = abs(anim.scale)
 	colliderScaleLockY = col.scale.y
@@ -246,9 +222,6 @@ func _physics_process(delta):
 		wasPressingR = true
 	if leftTap:
 		wasPressingR = false
-
-	if is_on_floor(): 
-		maxSpeed = maxSpeedLock
 	
 	if !(leftHold or rightHold):
 		if !instantStop:
@@ -256,8 +229,6 @@ func _physics_process(delta):
 		else:
 			velocity.x = 0
 
-			
-	maxSpeed = maxSpeedLock
 	col.scale.y = colliderScaleLockY
 	col.position.y = colliderPosLockY
 			
@@ -274,7 +245,7 @@ func _physics_process(delta):
 		elif velocity.y > terminalVelocity:
 				velocity.y = terminalVelocity
 		
-	if shortHopAkaVariableJumpHeight and jumpRelease and velocity.y < 0:
+	if shortHop and jumpRelease and velocity.y < 0:
 		velocity.y = velocity.y / 2
 	
 	if jumps == 1:

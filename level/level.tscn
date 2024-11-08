@@ -490,5 +490,4 @@ position = Vector2(2951, 381)
 rotation = 1.5708
 
 [node name="Player" parent="." instance=ExtResource("16_waqhn")]
-position = Vector2(370.366, 389.027)
-jumpHeight = 3.0
+position = Vector2(370, 389)

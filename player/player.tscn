@@ -306,8 +306,6 @@ size = Vector2(43, 64)
 script = ExtResource("1_x8s3m")
 PlayerSprite = NodePath("AnimatedSprite2D")
 PlayerCollider = NodePath("CollisionShape2D")
-jumpHeight = 1.0
-jumps = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -1)
