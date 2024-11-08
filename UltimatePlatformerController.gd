@@ -30,8 +30,6 @@ var descendingGravityFactor: float = 1.3
 var shortHop: bool = true
 #Time to jump after falling off a ledge
 var coyoteTime: float = 0.2
-##The window of time (in seconds) that your player can press the jump button before hitting the ground and still have their input registered as a jump. This is set to 0.2 seconds by default.
-@export_range(0, 0.5) var jumpBuffering: float = 0.2
 
 
 
@@ -125,11 +123,9 @@ func _updateData():
 		instantStop = false
 		
 	if jumps > 1:
-		jumpBuffering = 0
 		coyoteTime = 0
 	
 	coyoteTime = abs(coyoteTime)
-	jumpBuffering = abs(jumpBuffering)
 	
 	
 
@@ -257,15 +253,10 @@ func _physics_process(delta):
 			if coyoteActive:
 				coyoteActive = false
 				_jump()
-			if jumpBuffering > 0:
-				jumpWasPressed = true
-				_bufferJump()
-			elif jumpBuffering == 0 and coyoteTime == 0 and is_on_floor():
+			elif coyoteTime == 0 and is_on_floor():
 				_jump()	
 		elif jumpTap and is_on_floor():
 			_jump()
-		
-		
 			
 		if is_on_floor():
 			jumpCount = jumps
@@ -282,10 +273,6 @@ func _physics_process(delta):
 			velocity.y = -jumpMagnitude
 			jumpCount = jumpCount - 1
 	move_and_slide()
-	
-func _bufferJump():
-	await get_tree().create_timer(jumpBuffering).timeout
-	jumpWasPressed = false
 
 func _coyoteTime():
 	await get_tree().create_timer(coyoteTime).timeout
