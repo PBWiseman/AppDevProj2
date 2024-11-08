@@ -253,16 +253,10 @@ func _updateData():
 
 func _process(_delta):
 	#INFO animations
-	#directions
-	if is_on_wall() and !is_on_floor() and latch and wallLatching and ((wallLatchingModifer and latchHold) or !wallLatchingModifer):
-		latched = true
-	else:
-		latched = false
-		wasLatched = true
 
-	if rightHold and !latched:
+	if rightHold:
 		anim.scale.x = animScaleLock.x
-	if leftHold and !latched:
+	if leftHold:
 		anim.scale.x = animScaleLock.x * -1
 	
 	#run
@@ -274,16 +268,6 @@ func _process(_delta):
 				node.start_timer()
 			anim.speed_scale = abs(velocity.x / 150)
 			anim.play("run")
-		elif abs(velocity.x) < 0.1 and is_on_floor():
-			anim.speed_scale = 1
-			anim.play("idle")
-	elif run and idle and walk and !dashing and !crouching:
-		if abs(velocity.x) > 0.1 and is_on_floor() and !is_on_wall():
-			anim.speed_scale = abs(velocity.x / 150)
-			if abs(velocity.x) < (maxSpeedLock):
-				anim.play("walk")
-			else:
-				anim.play("run")
 		elif abs(velocity.x) < 0.1 and is_on_floor():
 			anim.speed_scale = 1
 			anim.play("idle")
@@ -300,33 +284,6 @@ func _process(_delta):
 	if velocity.y > 40 and falling and !dashing and !crouching:
 		anim.speed_scale = 1
 		anim.play("falling")
-		
-	if latch and slide:
-		#wall slide and latch
-		if latched and !wasLatched:
-			anim.speed_scale = 1
-			anim.play("latch")
-		if is_on_wall() and velocity.y > 0 and slide and anim.animation != "slide" and wallSliding != 1:
-			anim.speed_scale = 1
-			anim.play("slide")
-			
-		#dash
-		if dashing:
-			anim.speed_scale = 1
-			anim.play("dash")
-			
-		#crouch
-		if crouching and !rolling:
-			if abs(velocity.x) > 10:
-				anim.speed_scale = 1
-				anim.play("crouch_walk")
-			else:
-				anim.speed_scale = 1
-				anim.play("crouch_idle")
-		
-		if rollTap and canRoll and roll:
-			anim.speed_scale = 1
-			anim.play("roll")
 		
 		
 		
