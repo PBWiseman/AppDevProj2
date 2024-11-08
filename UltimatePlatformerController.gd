@@ -16,15 +16,12 @@ class_name PlatformerController2D
 #INFO HORIZONTAL MOVEMENT 
 @export_category("L/R Movement")
 ##The max speed your player will move
-@export_range(50, 500) var maxSpeed: float = 200.0
+var maxSpeed: float = 200.0
 ##How fast your player will reach max speed from rest (in seconds)
-@export_range(0, 4) var timeToReachMaxSpeed: float = 0.2
+var timeToReachMaxSpeed: float = 0.2
 ##How fast your player will reach zero speed from max speed (in seconds)
-@export_range(0, 4) var timeToReachZeroSpeed: float = 0.2
-##If true, player will instantly move and switch directions. Overrides the "timeToReach" variables, setting them to 0.
-@export var directionalSnap: bool = false
-##If enabled, the default movement speed will by 1/2 of the maxSpeed and the player must hold a "run" button to accelerate to max speed. Assign "run" (case sensitive) in the project input settings.
-@export var runningModifier: bool = false
+var timeToReachZeroSpeed: float = 0.2
+
 
 #INFO JUMPING 
 @export_category("Jumping and Gravity")
@@ -158,10 +155,6 @@ func _updateData():
 	coyoteTime = abs(coyoteTime)
 	jumpBuffering = abs(jumpBuffering)
 	
-	if directionalSnap:
-		instantAccel = true
-		instantStop = true
-	
 	
 
 func _process(_delta):
@@ -253,10 +246,8 @@ func _physics_process(delta):
 		wasPressingR = true
 	if leftTap:
 		wasPressingR = false
-	
-	if runningModifier and !runHold:
-		maxSpeed = maxSpeedLock / 2
-	elif is_on_floor(): 
+
+	if is_on_floor(): 
 		maxSpeed = maxSpeedLock
 	
 	if !(leftHold or rightHold):
