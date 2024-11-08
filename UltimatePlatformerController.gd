@@ -99,20 +99,8 @@ class_name PlatformerController2D
 @export var jump: bool
 ##Animations must be named "idle" all lowercase as the check box says
 @export var idle: bool
-##Animations must be named "walk" all lowercase as the check box says
-@export var walk: bool
-##Animations must be named "slide" all lowercase as the check box says
-@export var slide: bool
-##Animations must be named "latch" all lowercase as the check box says
-@export var latch: bool
 ##Animations must be named "falling" all lowercase as the check box says
 @export var falling: bool
-##Animations must be named "crouch_idle" all lowercase as the check box says
-@export var crouch_idle: bool
-##Animations must be named "crouch_walk" all lowercase as the check box says
-@export var crouch_walk: bool
-##Animations must be named "roll" all lowercase as the check box says
-@export var roll: bool
 
 
 
