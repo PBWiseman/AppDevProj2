@@ -29,8 +29,9 @@ texture = SubResource("GradientTexture2D_8rwak")
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
-text = "Movement:        WASD
-Jump:                  Space
+text = "Move Left:                 A
+Move Right:               D
+Jump:             Space/W
 Respawn:                    R
 Reset:                          T
 
