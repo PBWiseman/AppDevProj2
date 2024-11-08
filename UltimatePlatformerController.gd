@@ -2,10 +2,6 @@ extends CharacterBody2D
 
 class_name PlatformerController2D
 
-@export_category("Necesary Child Nodes")
-@export var PlayerSprite: AnimatedSprite2D
-@export var PlayerCollider: CollisionShape2D
-
 ##The max speed your player will move
 var maxSpeed: float = 200.0
 #Time to reach max acceleration and deceleration
@@ -68,12 +64,8 @@ var jumpTap
 var jumpRelease
 
 func _ready():
-	anim = PlayerSprite
-	col = PlayerCollider
-	
-	_updateData()
-	
-func _updateData():
+	anim = get_node("AnimatedSprite2D")
+	col = get_node("CollisionShape2D")
 	acceleration = maxSpeed / timeToReach
 	deceleration = -maxSpeed / timeToReach
 	jumpMagnitude = (10.0 * jumpHeight) * gravityScale
@@ -81,8 +73,6 @@ func _updateData():
 	animScaleLock = abs(anim.scale)
 	colliderScaleLockY = col.scale.y
 	colliderPosLockY = col.position.y
-	
-	
 
 func _process(_delta):
 	#Flip Sprite
