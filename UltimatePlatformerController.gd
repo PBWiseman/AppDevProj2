@@ -79,18 +79,6 @@ class_name PlatformerController2D
 @export var middleRaycast: RayCast2D
 ##Raycast used for corner cutting calculations. Place above and to the right of the players head point up. ALL ARE NEEDED FOR IT TO WORK.
 @export var rightRaycast: RayCast2D
-@export_category("Down Input")
-##Holding down will crouch the player. Crouching script may need to be changed depending on how your player's size proportions are. It is built for 32x player's sprites.
-@export var crouch: bool = false
-##Holding down and pressing the input for "roll" will execute a roll if the player is grounded. Assign a "roll" input in project settings input.
-@export var canRoll: bool
-@export_range(1.25, 2) var rollLength: float = 2
-##If enabled, the player will stop all horizontal movement midair, wait (groundPoundPause) seconds, and then slam down into the ground when down is pressed. 
-@export var groundPound: bool
-##The amount of time the player will hover in the air before completing a ground pound (in seconds)
-@export_range(0.05, 0.75) var groundPoundPause: float = 0.25
-##If enabled, pressing up will end the ground pound early
-@export var upToCancel: bool = false
 
 @export_category("Animations (Check Box if has animation)")
 ##Animations must be named "run" all lowercase as the check box says
