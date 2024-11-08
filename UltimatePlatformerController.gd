@@ -21,8 +21,6 @@ var gravityScale: float = 20.0
 var terminalVelocity: float = 500.0
 #Gravity increase when falling
 var descendingGravityFactor: float = 1.3
-#Time to jump after falling off a ledge
-var coyoteTime: float = 0.2
 
 
 
@@ -186,41 +184,15 @@ func _physics_process(delta):
 	if jumpRelease and velocity.y < 0:
 		velocity.y = velocity.y / 2
 	
-	if jumps == 1:
-		if !is_on_floor() and !is_on_wall():
-			if coyoteTime > 0:
-				coyoteActive = true
-				_coyoteTime()		
-		if jumpTap and !is_on_wall():
-			if coyoteActive:
-				coyoteActive = false
-				_jump()
-			elif coyoteTime == 0 and is_on_floor():
-				_jump()	
-		elif jumpTap and is_on_floor():
-			_jump()
-			
-		if is_on_floor():
-			jumpCount = jumps
-			coyoteActive = true
-			if jumpWasPressed:
-				_jump()
-
-	elif jumps > 1:
-		if is_on_floor():
-			jumpCount = jumps
-		elif jumpCount == jumps:
-			jumpCount = jumps - 1
-		if jumpTap and jumpCount > 0:
-			velocity.y = -jumpMagnitude
-			jumpCount = jumpCount - 1
+	if is_on_floor():
+		jumpCount = jumps
+	elif jumpCount == jumps:
+		jumpCount = jumps - 1
+	if jumpTap and jumpCount > 0:
+		velocity.y = -jumpMagnitude
+		jumpCount = jumpCount - 1
 	move_and_slide()
 
-func _coyoteTime():
-	await get_tree().create_timer(coyoteTime).timeout
-	coyoteActive = false
-	jumpCount += -1
-	
 func _jump():
 	if jumpCount > 0:
 		velocity.y = -jumpMagnitude
