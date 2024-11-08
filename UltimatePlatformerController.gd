@@ -259,8 +259,8 @@ func _process(_delta):
 	if leftHold:
 		anim.scale.x = animScaleLock.x * -1
 	
-	#run
-	if run and idle and !dashing and !crouching:
+	#Running
+	if run and idle:
 		if abs(velocity.x) > 0.1 and is_on_floor() and !is_on_wall():
 			if !timerStarted:
 				timerStarted = true
@@ -271,8 +271,8 @@ func _process(_delta):
 		elif abs(velocity.x) < 0.1 and is_on_floor():
 			anim.speed_scale = 1
 			anim.play("idle")
-		
-	#jump
+
+	#Jumping
 	if velocity.y < 0 and jump and !dashing:
 		if !timerStarted:
 			timerStarted = true
@@ -280,7 +280,8 @@ func _process(_delta):
 			node.start_timer()
 		anim.speed_scale = 1
 		anim.play("jump")
-		
+
+	#Falling
 	if velocity.y > 40 and falling and !dashing and !crouching:
 		anim.speed_scale = 1
 		anim.play("falling")
@@ -364,23 +365,8 @@ func _physics_process(delta):
 	else:
 		appliedGravity = gravityScale
 	
-	if is_on_wall() and !groundPounding:
-		appliedTerminalVelocity = terminalVelocity / wallSliding
-		if wallLatching and ((wallLatchingModifer and latchHold) or !wallLatchingModifer):
-			appliedGravity = 0
-			
-			if velocity.y < 0:
-				velocity.y += 50
-			if velocity.y > 0:
-				velocity.y = 0
-				
-			if wallLatchingModifer and latchHold and movementInputMonitoring == Vector2(true, true):
-				velocity.x = 0
-			
-		elif wallSliding != 1 and velocity.y > 0:
-			appliedGravity = appliedGravity / wallSliding
-	elif !is_on_wall() and !groundPounding:
-		appliedTerminalVelocity = terminalVelocity
+	appliedTerminalVelocity = terminalVelocity / wallSliding
+
 	
 	if gravityActive:
 		if velocity.y < appliedTerminalVelocity:
